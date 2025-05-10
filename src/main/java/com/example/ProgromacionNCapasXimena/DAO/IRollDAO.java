@@ -5,6 +5,6 @@ import com.example.ProgromacionNCapasXimena.JPA.Result;
 
 public interface IRollDAO {
     
-    Result GetAllJPA();
+    Result GetAll();
     
 }

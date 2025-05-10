@@ -8,7 +8,7 @@ public interface IDireccionDAO {
 
     Result DireccionAddJPA(UsuarioDireccion usuarioDireccion);
     
-    Result DireccionDeletJPA(int IdDireccion);
+    Result DireccionDeleteJPA(int IdDireccion);
 
     Result UpdateDireccionJPA(Direccion direccion); 
     

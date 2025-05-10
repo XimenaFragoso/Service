@@ -13,33 +13,27 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class EstadoDAOImplementation implements IEstadoDAO{
     
-//    @Autowired 
-//    private JdbcTemplate jdbcTemplate; 
-    
     @Autowired
     private EntityManager entityManager;
     
+    //    ----------
+
     @Override
     public Result EstadoByIdPaisJPA(int IdPais) {
         
         Result result = new Result();
         
         try {
-            TypedQuery<com.example.ProgromacionNCapasXimena.JPA.Estado> queryEstado = entityManager.createQuery("FROM Estado WHERE Pais.IdPais = :idpais", com.example.ProgromacionNCapasXimena.JPA.Estado.class);
-            
+            TypedQuery<Estado> queryEstado = entityManager.createQuery("FROM Estado WHERE Pais.IdPais = :idpais", Estado.class);
             queryEstado.setParameter("idpais", IdPais);
+            List<Estado> listaEstados = queryEstado.getResultList();
+            result.objects = new ArrayList<>(); 
             
-            List<com.example.ProgromacionNCapasXimena.JPA.Estado> estadosJPA = queryEstado.getResultList();
-            
-            result.objects = new ArrayList(); 
-            
-            for (com.example.ProgromacionNCapasXimena.JPA.Estado estadoJPA : estadosJPA) {
-                
+            for (Estado estadoJPA : listaEstados) {
                 Estado estado = new Estado(); 
-                
-                estado = estadoJPA;
-                
+                estado = estadoJPA; 
                 result.objects.add(estado);
+                
             }
             
             result.correct = true;

@@ -5,5 +5,5 @@ import com.example.ProgromacionNCapasXimena.JPA.Result;
 
 public interface IPaisDAO {
 
-    Result GetAllJPA();
+    Result GetAllJPAPais();
 }

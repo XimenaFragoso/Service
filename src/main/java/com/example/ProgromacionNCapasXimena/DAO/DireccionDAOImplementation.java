@@ -13,11 +13,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DireccionDAOImplementation implements IDireccionDAO {
 
-//    @Autowired
-//    JdbcTemplate jdbcTemplate;
-
     @Autowired //conexion de JPA
     private EntityManager entityManager;
+    
+    
+//    ----------
 
     @Transactional
     @Override
@@ -30,7 +30,7 @@ public class DireccionDAOImplementation implements IDireccionDAO {
             entityManager.persist(usuarioDireccion.Direccion);
             
             usuarioDireccion.Direccion = usuarioDireccion.Direccion; 
-            
+                                    
             result.correct = true;
 
         } catch (Exception Ex) {
@@ -43,10 +43,11 @@ public class DireccionDAOImplementation implements IDireccionDAO {
 
     }
 
+//    ----------
     @Transactional
     @Override
     //borrar direccion con iddirecion vista detailDireccion
-    public Result DireccionDeletJPA(int IdDireccion) {
+    public Result DireccionDeleteJPA(int IdDireccion) {
         Result result = new Result();
 
         try {
@@ -65,7 +66,9 @@ public class DireccionDAOImplementation implements IDireccionDAO {
         return result;
 
     }
-
+    
+    
+    //revisarrr
     @Transactional
     @Override   
     public Result UpdateDireccionJPA(Direccion direccion) {
@@ -74,6 +77,12 @@ public class DireccionDAOImplementation implements IDireccionDAO {
         
         try{
             
+            direccion.Usuario = new com.example.ProgromacionNCapasXimena.JPA.Usuario(); 
+            
+            direccion = entityManager.find(com.example.ProgromacionNCapasXimena.JPA.Direccion.class, direccion.getIdDireccion());
+            
+            direccion.Usuario.setIdUsuario(direccion.Usuario.getIdUsuario());
+                    
             entityManager.merge(direccion);
             
         }catch (Exception Ex) {
@@ -86,7 +95,10 @@ public class DireccionDAOImplementation implements IDireccionDAO {
         return result;
         
     }
- 
+    
+    
+ //    ----------
+
     @Override
     public Result GetByIdDireccionJPA(int IdDireccion) {
         Result result = new Result(); 

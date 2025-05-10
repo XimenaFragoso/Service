@@ -20,25 +20,17 @@ public class PaisDAOImplementation implements IPaisDAO{
     private EntityManager entityManager;
 
     @Override
-    public Result GetAllJPA() {
+    public Result GetAllJPAPais() {
         
         Result result = new Result(); 
         
         try {
             
-        TypedQuery<com.example.ProgromacionNCapasXimena.JPA.Pais> queryPaises = entityManager.createQuery("FROM Paises", com.example.ProgromacionNCapasXimena.JPA.Pais.class); 
-        List<com.example.ProgromacionNCapasXimena.JPA.Pais> paises = queryPaises.getResultList(); 
+        TypedQuery<com.example.ProgromacionNCapasXimena.JPA.Pais> queryPaises = entityManager.createQuery("FROM Pais", com.example.ProgromacionNCapasXimena.JPA.Pais.class);         
+        result.object = queryPaises.getResultList();
         
-        result.objects = new ArrayList<>();
-        
-            for (com.example.ProgromacionNCapasXimena.JPA.Pais paisJPA : paises) {
-                
-                Pais pais = new Pais(); 
-                
-                pais = paisJPA;
-                
-                result.objects.add(pais);
-            }
+        result.correct = true;
+
             
         } catch (Exception ex) {
             result.correct = false; 

@@ -12,9 +12,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ColoniaDAOImplementation implements IColoniaDAO {
 
-//    @Autowired
-//    private JdbcTemplate jdbcTemplate;
-
+    //    ----------
+    
     @Autowired
     private EntityManager entityManager;
 
@@ -26,23 +25,17 @@ public class ColoniaDAOImplementation implements IColoniaDAO {
 
         try {
 
-            TypedQuery<com.example.ProgromacionNCapasXimena.JPA.Colonia> queryColonia = entityManager.createQuery("FROM Colonia WHERE Municipio.IdMunicipio = :idmunicipio", com.example.ProgromacionNCapasXimena.JPA.Colonia.class);
-            
-            queryColonia.setParameter("idmunicipio", IdMunicipio);
-            
-            List<com.example.ProgromacionNCapasXimena.JPA.Colonia> coloniasJPA = queryColonia.getResultList();
-
+            TypedQuery<Colonia> queryColonia = entityManager.createQuery("FROM Colonia WHERE Municipio.IdMunicipio = :idmunicipio", Colonia.class);
+            queryColonia.setParameter("idmunicipio", IdMunicipio);           
+            List<Colonia> listaColonias = queryColonia.getResultList();            
             result.objects = new ArrayList<>();
-            
-            for (com.example.ProgromacionNCapasXimena.JPA.Colonia coloniaJPA : coloniasJPA) {
-                
+
+            for (Colonia coloniaJPA : listaColonias) {
                 Colonia colonia = new Colonia();
-                
                 colonia = coloniaJPA;
-                
                 result.objects.add(colonia);
             }
-
+                        
             result.correct = true;
 
         } catch (Exception Ex) {

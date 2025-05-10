@@ -1,6 +1,5 @@
 package com.example.ProgromacionNCapasXimena.DAO;
 
-import com.example.ProgromacionNCapasXimena.JPA.Direccion;
 import com.example.ProgromacionNCapasXimena.JPA.Result;
 import com.example.ProgromacionNCapasXimena.JPA.Usuario;
 import com.example.ProgromacionNCapasXimena.JPA.UsuarioDireccion;
@@ -20,6 +19,7 @@ public class UsuarioDAOImplementation implements IUsuarioDAO {
     @Autowired //conexion de JPA
     private EntityManager entityManager;
 
+//    ----------
     @Override
     public Result GetAllJPA() {
 
@@ -57,7 +57,8 @@ public class UsuarioDAOImplementation implements IUsuarioDAO {
         }
         return result;
     }
-
+    
+//    ----------
     @Transactional
     @Override
     public Result AddJPA(UsuarioDireccion usuarioDireccion) {
@@ -82,7 +83,7 @@ public class UsuarioDAOImplementation implements IUsuarioDAO {
         return result;
 
     }
-
+    //----------
     @Transactional
     @Override
     public Result UsuarioDeleteJPA(int IdUsuario) {
@@ -120,6 +121,7 @@ public class UsuarioDAOImplementation implements IUsuarioDAO {
 
     }
 
+//    ----------
     @Transactional
     @Override
     public Result UpdateUsuarioJPA(Usuario usuario) {
@@ -170,15 +172,17 @@ public class UsuarioDAOImplementation implements IUsuarioDAO {
         return result;
     }
 
+    
+//    ----------
     @Override
     public Result GetByIdJPA(int IdUsuario) {
 
         Result result = new Result();
 
         try {
-            com.example.ProgromacionNCapasXimena.JPA.Usuario usuario = new com.example.ProgromacionNCapasXimena.JPA.Usuario();
+            Usuario usuario = new Usuario();
             
-            usuario = entityManager.find(com.example.ProgromacionNCapasXimena.JPA.Usuario.class, IdUsuario);
+            usuario = entityManager.find(Usuario.class, IdUsuario);
             
             result.object = usuario;
             
@@ -192,6 +196,7 @@ public class UsuarioDAOImplementation implements IUsuarioDAO {
         return result;
     }
 
+//    ----------
     @Override
     public Result DireccionByIdJPA(int IdUsuario) {
         Result result = new Result();
@@ -203,18 +208,9 @@ public class UsuarioDAOImplementation implements IUsuarioDAO {
             //lista que sale de la consulta "typedquery"
             List<com.example.ProgromacionNCapasXimena.JPA.Direccion> direcciones = querydireccionByIdUsuario.getResultList();
             
-            result.objects = new ArrayList<>(); 
+            result.object = direcciones;
             
-            
-            for (Direccion direccionJPA : direcciones) {
-                
-                Direccion direccion = new Direccion(); 
-                
-                direccion = direccionJPA;
-                
-                result.objects.add(direccion);
-                
-            }
+            result.correct = true;
         } catch (Exception Ex) {
             result.object = false;
             result.errorMessage = Ex.getLocalizedMessage();
